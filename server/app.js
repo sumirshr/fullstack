@@ -40,6 +40,6 @@ res.send(`Hello from register page!!`)
 })
 
 
-app.listen(PORT,()=>{
+app.listen(PORT,async()=>{
     console.log("server runing...")
 })
