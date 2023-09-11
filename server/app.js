@@ -1,15 +1,16 @@
+const dotenv=require("dotenv");
 const mongoose=require("mongoose");
+const cors = require('cors');
 const express=require("express");
 const app=express();
+app.use(cors());
+dotenv.config({path:'./config.env'});
+require("./db/con");
+// const User=require('./models/userSchema');
 
-const db="mongodb+srv://sumirshr03:poush03@cluster0.zqbbulv.mongodb.net/mernstack?retryWrites=true&w=majority"
-
-mongoose.connect(db).then(()=>{
-    console.log(`connection successful`)
-})
-.catch((err)=>{
-    console.log(`connection failed`)
-})
+app.use(express.json());
+app.use(require('./routes/auth'));
+const PORT=process.env.PORT;
 
 // middleware
 const middleware=(req,res,next)=>{
@@ -18,10 +19,7 @@ next();
 }
 
 
-app.get('/',(req,res)=>{
-res.send(`Hello from server!!`)
 
-})
 app.get('/',(req,res)=>{
 res.send(`Hello from server!!`)
 
@@ -42,6 +40,6 @@ res.send(`Hello from register page!!`)
 })
 
 
-app.listen(3000,()=>{
+app.listen(PORT,()=>{
     console.log("server runing...")
 })
